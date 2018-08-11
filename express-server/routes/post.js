@@ -12,7 +12,6 @@ var Post = mongoose.model('Post')
 //     likes: Number,
 // })
 
-
 // GET ALL POSTS
 router.get('/', function (request, response) {
     Post.find({}, function (err, posts) {

@@ -76,9 +76,29 @@ export class Homepage extends Component {
         switch (data) {
             case 0:
                 console.log("Newest")
+                function compareDates(a, b) {
+                    if (a.created_at < b.created_at)
+                        return 1;
+                    if (a.created_at > b.created_at)
+                        return -1;
+                    return 0;
+                }
+                this.setState({
+                    posts: this.state.posts.sort(compareDates)
+                })
                 break
             case 1:
                 console.log("Most Popular")
+                function compareLikes(a, b) {
+                    if (a.likes < b.likes)
+                        return 1;
+                    if (a.likes > b.likes)
+                        return -1;
+                    return 0;
+                }
+                this.setState({
+                    posts: this.state.posts.sort(compareLikes)
+                })
                 break
             case 2:
                 console.log("Most Discussed")
@@ -148,34 +168,36 @@ export class Homepage extends Component {
                         </div>
                         <hr />
                         <div className="row mb-4">
-                            <div className="d-flex justify-content-start col-4">
+                            <div className="d-flex justify-content-start col-2">
                                 <a href="#" onClick={(event) => {
                                     event.preventDefault()
                                     this.sortPosts(0)
                                 }}>Newest</a>
-                                {/* <button className="btn btn-sm" onClick={() => this.sortPosts(0)}>Newest</button> */}
                             </div>
-                            <div className="d-flex justify-content-center col-4">
+                            <div className="d-flex justify-content-start col-4">
                                 <a href="#" onClick={(event) => {
                                     event.preventDefault()
                                     this.sortPosts(1)
                                 }}>Most Popular</a>
-                                {/* <button className="btn btn-sm" onClick={() => this.sortPosts(1)}>Most Popular</button> */}
-                            </div>
-                            <div className="d-flex justify-content-end col-4">
-                                <a href="#" onClick={(event) => {
+                                {/* <a href="#" onClick={(event) => {
                                     event.preventDefault()
                                     this.sortPosts(2)
-                                }}>Most Discussed</a>
-                                {/* <button className="btn btn-sm" onClick={() => this.sortPosts(2)}>Most Discussed</button> */}
+                                }}>Most Discussed</a> */}
                             </div>
+                            <div className="d-flex justify-content-end col-4">
+                                {/* <a href="#" onClick={(event) => {
+                                    event.preventDefault()
+                                    this.sortPosts(1)
+                                }}>Most Popular</a> */}
+                            </div>
+
                         </div>
                         {
                             this.state.posts.map(item => {
                                 return (
                                     <div key={item._id}>
-                                        <Post 
-                                            item = {item}
+                                        <Post
+                                            item={item}
                                         />
                                     </div>
                                 )
