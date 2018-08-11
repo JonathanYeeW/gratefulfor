@@ -15,7 +15,29 @@ export class Homepage extends Component {
         this.state = {
             posts: [1, 2],
             submission: false,
+            name: "",
+            post: "",
         }
+    }
+
+    // functions: handles when users type into the name and posts 
+    // input field. allows me to set a character limit
+    handlePostNameChange = (event) => {
+        if (event.target.value.length > 32) {
+            return
+        }
+        this.setState({
+            name: event.target.value
+        })
+    }
+
+    handlePostPostChange = (event) => {
+        if (event.target.value.length > 150) {
+            return
+        }
+        this.setState({
+            post: event.target.value
+        })
     }
 
     // function for submitting a new post
@@ -25,13 +47,14 @@ export class Homepage extends Component {
         // data is what i'll send to the server to create 
         // the post object
         const data = {
-            name: event.target.name.value,
-            post: event.target.post.value,
+            name: this.state.name,
+            post: this.state.post,
         }
-        event.target.name.value = ""
-        event.target.post.value = ""
+        console.log(data)
         this.setState({
-            submission: true
+            submission: true,
+            name: "",
+            post: "",
         })
     }
 
@@ -54,6 +77,9 @@ export class Homepage extends Component {
         }
     }
 
+    // function: connected to the prev and next buttons 
+    // at the bottom of the page. toggles the pagination
+    // of 25 posts forward and back.
     pagination = (data) => {
         console.log("## Homepage ## pagination()")
         switch (data) {
@@ -89,10 +115,10 @@ export class Homepage extends Component {
             formbody =
                 <form className="mb-5" onSubmit={(event) => this.submitNewPost(event)}>
                     <div className="form-group">
-                        <input type="text" class="form-control" placeholder="Your Name" name="name" />
+                        <input type="text" class="form-control" placeholder="Your Name" value={this.state.name} onChange={this.handlePostNameChange} />
                     </div>
                     <div className="form-group">
-                        <textarea className="form-control" placeholder="I'm grateful for..." rows="3" name="post"></textarea>
+                        <textarea className="form-control" placeholder="I'm grateful for..." rows="3" value={this.state.post} onChange={this.handlePostPostChange}></textarea>
                     </div>
                     <div className="row d-flex justify-content-end">
                         <button className="btn">Post</button>

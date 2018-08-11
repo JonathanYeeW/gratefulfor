@@ -12,14 +12,53 @@ export class Feedback extends Component {
         super(props);
         console.log("## Feedback ## props:", this.props)
         this.state = {
-            submission: false
+            submission: false,
+            name: "",
+            email: "",
+            feedback: "",
         }
+    }
+
+    handleFeedbackNameChange = (event) => {
+        if (event.target.value.length > 32) {
+            return
+        }
+        this.setState({
+            name: event.target.value
+        })
+    }
+
+    handleFeedbackEmailChange = (event) => {
+        if (event.target.value.length > 32) {
+            return
+        }
+        this.setState({
+            email: event.target.value
+        })
+    }
+
+    handleFeedbackFeedbackChange = (event) => {
+        if (event.target.value.length > 400) {
+            return
+        }
+        this.setState({
+            feedback: event.target.value
+        })
     }
 
     submitFeedback = () => {
         console.log("## Feedback ## submitFeedback()")
+        const data = {
+            name: this.state.name,
+            email: this.state.email,
+            feedback: this.state.feedback,
+        }
+        console.log(data)
         this.setState({
-            submission: true
+            submission: true,
+            name: "",
+            email: "",
+            feedback: "",
         })
     }
 
@@ -41,13 +80,13 @@ export class Feedback extends Component {
                     this.submitFeedback()
                 }}>
                     <div className="form-group">
-                        <input type="text" class="form-control" placeholder="Your Name" />
+                        <input type="text" class="form-control" placeholder="Your Name" value={this.state.name} onChange={this.handleFeedbackNameChange} />
                     </div>
                     <div className="form-group">
-                        <input type="text" class="form-control" placeholder="Your Email" />
+                        <input type="text" class="form-control" placeholder="Your Email" value={this.state.email} onChange={this.handleFeedbackEmailChange} />
                     </div>
                     <div className="form-group">
-                        <textarea className="form-control" placeholder="Feedback" rows="5"></textarea>
+                        <textarea className="form-control" placeholder="Feedback" rows="5" value={this.state.feedback} onChange={this.handleFeedbackFeedbackChange}></textarea>
                     </div>
                     <div className="row d-flex justify-content-end">
                         <button className="btn">Submit</button>
