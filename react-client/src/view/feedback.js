@@ -111,9 +111,16 @@ export class Feedback extends Component {
                             {body}
                         </div>
                         <hr />
-                        <div className="row d-flex justify-content-center">
-                            <a href="#" onClick={() => this.props.navigate()}>Home</a>
-                            {/* <button className="btn btn-sm" onClick={() => this.props.navigate()}>Home</button> */}
+                        <div className="row ">
+                            <div className="col-6 d-flex justify-content-end">
+                                <a href="#" onClick={() => this.props.navigate()}>Home</a>
+                            </div>
+                            <div className="col-6 d-flex justify-content-start">
+                                <a href="#" onClick={(event) => {
+                                    event.preventDefault()
+                                    this.props.navigate("admin")
+                                }}>Admin</a>
+                            </div>
                         </div>
                     </div>
                     <div className="col-3"></div>

@@ -11,21 +11,35 @@ class App extends Component {
     console.log("## App ##")
     this.state = {
       //true = homepage, false = feedbackpage
-      navigate: true
+      navigate: true,
+      admin: true,
     }
   }
 
-  navigate = () => {
+  navigate = (data) => {
     console.log("## App ## navigate()")
-    this.setState({
-      navigate: !this.state.navigate,
-    })
+    if (data === undefined) {
+      this.setState({
+        navigate: !this.state.navigate,
+        admin: false
+      })
+    } else {
+      this.setState({
+        admin: true
+      })
+    }
+
   }
 
   render() {
     console.log("## App ## render()")
     let body;
-    if (this.state.navigate === true) {
+    if (this.state.admin === true) {
+      body =
+        <Admin
+          navigate={this.navigate}
+        />
+    } else if (this.state.navigate === true) {
       body =
         <Homepage
           navigate={this.navigate}
@@ -40,7 +54,6 @@ class App extends Component {
     return (
       <div id="app-wrapper" className="mt-5 mb-5">
         {body}
-        {/* <Admin /> */}
       </div>
     )
   }

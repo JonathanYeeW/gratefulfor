@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { FlaggedPost } from './Components/FlaggedPost';
 
 // Props:
+// - navigate | 
 
 export class Admin extends Component {
     constructor(props) {
@@ -29,6 +30,13 @@ export class Admin extends Component {
                         <hr />
                     </div>
                     <div className="col-3"></div>
+                </div>
+
+                <hr />
+                <div className="row ">
+                    <div className="col-12 d-flex justify-content-center">
+                        <a href="#" onClick={() => this.props.navigate()}>Home</a>
+                    </div>
                 </div>
             </div>
         )
