@@ -6,54 +6,29 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/merntest')
 mongoose.Promise = global.Promise;
 
-// USER SCHEMA
-var UserSchema = new mongoose.Schema({
-  firstname: String,
-  lastname: String,
-  email: String,
-  password: String,
-  created_at: Date,
-  updated_at: Date,
-})
-mongoose.model('User', UserSchema);
-
-//BOOK SCHEMA
-var BookSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  userid: String,
-  allusers: [String],
-  genre: String,
-  description: String,
-  reviews: [],
-  created_at: Date,
-  updated_at: Date,
-})
-mongoose.model('Book', BookSchema);
-
-//POST SCHEMA
+// POST SCHEMA
 var PostSchema = new mongoose.Schema({
-  title: String,
-  userid: String,
-  username: String,
+  name: String,
   post: String,
   created_at: Date,
-  updated_at: Date,
+  flag: Boolean,
+  likes: Number,
 })
 mongoose.model('Post', PostSchema)
 
-//NEWSFEED SCHEMA
-var NewsfeedSchema = new mongoose.Schema({
-  title: String,
-  by_userid: String,
-  by_username: String,
-  type: String,
-  type_id: String,
-  type_title: String,
-  created_at: Date,
-  updated_at: Date,
+// VIEW SCHEMA
+var ViewSchema = new mongoose.Schema({
+  counter: Number,
 })
-mongoose.model('Newsfeed', NewsfeedSchema)
+mongoose.model('View', ViewSchema)
+
+// FEEDBACK SCHEMA
+var FeedbackSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  created_at: Date,
+})
+mongoose.model('Feedback', FeedbackSchema)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
