@@ -22,6 +22,11 @@ export class Homepage extends Component {
             name: "",
             post: "",
         }
+        this.getAllPosts()
+    }
+
+    // Update Posts
+    getAllPosts = () => {
         fetch('/post/')
             .then(res => res.json())
             .then(res => {
@@ -139,7 +144,10 @@ export class Homepage extends Component {
                         <h3 className="text-center">Thank you for your submission!</h3>
                     </div>
                     <div className="col-12 d-flex justify-content-center">
-                        <button className="btn" onClick={() => this.setState({ submission: false })}>Submit Again</button>
+                        <button className="btn" onClick={() => {
+                            this.getAllPosts()
+                            this.setState({ submission: false })
+                        }}>Submit Again</button>
                     </div>
                 </div>
         } else {

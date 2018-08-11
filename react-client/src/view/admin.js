@@ -3,6 +3,8 @@
 
 import React, { Component } from 'react';
 import { FlaggedPost } from './Components/FlaggedPost';
+var postManager = require('../controller/postmanager')
+
 
 // Props:
 // - navigate | 
@@ -11,6 +13,16 @@ export class Admin extends Component {
     constructor(props) {
         super(props);
         console.log("## Admin ## props:", this.props)
+        this.state = {
+            flaggedPosts: []
+        }
+        fetch('/post/flaggedPosts')
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    flaggedPosts: res.posts
+                })
+            })
     }
 
     render() {
@@ -26,7 +38,21 @@ export class Admin extends Component {
                         <p>Total Views</p>
                         <hr />
                         <p>Flagged Posts Here</p>
-                        <FlaggedPost />
+
+                        {
+                            this.state.flaggedPosts.map(item => {
+                                return (
+                                    <div key={item._id}>
+                                        <FlaggedPost
+                                            item={item}
+                                        />
+                                    </div>
+                                )
+                            })
+                        }
+
+
+                        {/* <FlaggedPost /> */}
                         <hr />
                     </div>
                     <div className="col-3"></div>

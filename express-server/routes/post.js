@@ -25,6 +25,19 @@ router.get('/', function (request, response) {
     })
 })
 
+// GET FLAGGED POSTS
+router.get('/flaggedPosts', function (request, response) {
+    Post.find({flag: true}, function (err, posts) {
+        if (err) {
+            response.json({ message: "There was an error getting all posts", error: true })
+        } else {
+            //Reverse the posts so they're in new -> old order
+            posts.reverse()
+            response.json({ message: "success", error: false, posts: posts })
+        }
+    })
+})
+
 // CREATE POST
 router.post('/create', function (request, response) {
     var post = new Post({ name: request.body.name, post: request.body.post, created_at: Date(), flag: false, likes: 0 })
@@ -69,6 +82,35 @@ router.put('/flag', function (request, response) {
                     response.json({ message: "success", error: false })
                 }
             })
+        }
+    })
+})
+
+// REMOVE FLAG POST
+router.put('/removeflag', function (request, response) {
+    console.log(request.body)
+    Post.find({ _id: request.body.postid }, function (err, post) {
+        if (err) {
+            response.json({ message: "error", error: true })
+        } else {
+            Post.update({ _id: post[0]._id }, { flag: false }, function (err) {
+                if (err) {
+                    response.json({ message: "error", error: true })
+                } else {
+                    response.json({ message: "success", error: false })
+                }
+            })
+        }
+    })
+})
+
+// DELETE SINGLE POST
+router.delete('/delete', function (request, response) {
+    Post.remove({_id: request.body.postid}, function (err) {
+        if (err) {
+            response.json({ message: "There was an error deleting all posts", error: true })
+        } else {
+            response.json({ message: "success", error: false })
         }
     })
 })

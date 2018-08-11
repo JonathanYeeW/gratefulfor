@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       //true = homepage, false = feedbackpage
       navigate: true,
-      admin: true,
+      admin: false,
     }
   }
 

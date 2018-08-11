@@ -24,10 +24,34 @@ function getAllPosts() {
     })
 }
 
+function getFlaggedPosts(){
+    console.log("getFlaggedPosts")
+    fetch('/post/flaggedPosts')
+    .then(res => res.json())
+    .then(res => {
+        console.log(res.posts)
+        return res.posts
+    })
+}
+
 function deleteAllPosts() {
     console.log("delete all posts")
     fetch('/post/deleteAll', {
         method: "DELETE"
+    })
+        .then(res => res.json())
+        .then(res => console.log(res))
+}
+
+function deletePost(data) {
+    // data should be the post id
+    console.log("## postmanager ## deletePost")
+    fetch('/post/delete', {
+        method: "DELETE",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({postid: data})
     })
         .then(res => res.json())
         .then(res => console.log(res))
@@ -53,10 +77,25 @@ function flagPost(data){
     })
 }
 
+function removeFlag(data){
+    // data should be the postid
+    console.log("remove flag", data)
+    fetch('/post/removeflag', {
+        method: "PUT",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({postid: data._id})
+    })
+}
+
 module.exports = {
     createPost,
     getAllPosts,
+    getFlaggedPosts,
     deleteAllPosts,
     likePost,
     flagPost,
+    removeFlag,
+    deletePost
 }
