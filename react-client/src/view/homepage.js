@@ -13,7 +13,7 @@ export class Homepage extends Component {
         super(props);
         console.log("## Homepage ## props:", this.props)
         this.state = {
-            posts: [1, 2, 3, 4, 5],
+            posts: [1, 2],
             submission: false,
         }
     }
@@ -22,8 +22,12 @@ export class Homepage extends Component {
     submitNewPost = (event) => {
         console.log("## Homepage ## submitNewPost()")
         event.preventDefault();
-        console.log(event.target.name.value)
-        console.log(event.target.post.value)
+        // data is what i'll send to the server to create 
+        // the post object
+        const data = {
+            name: event.target.name.value,
+            post: event.target.post.value,
+        }
         event.target.name.value = ""
         event.target.post.value = ""
         this.setState({
@@ -58,9 +62,13 @@ export class Homepage extends Component {
         let formbody;
         if (this.state.submission) {
             formbody =
-                <div className="d-flex justify-content-center">
-                    <h3 className>Thank you for your submission!</h3>
-                    <button className="btn" onClick={() => this.setState({ submission: false })}>Submit Again</button>
+                <div className="row ">
+                    <div className="col-12">
+                        <h3 className="text-center">Thank you for your submission!</h3>
+                    </div>
+                    <div className="col-12 d-flex justify-content-center">
+                        <button className="btn" onClick={() => this.setState({ submission: false })}>Submit Again</button>
+                    </div>
                 </div>
         } else {
             formbody =
@@ -89,13 +97,25 @@ export class Homepage extends Component {
                         <hr />
                         <div className="row mb-4">
                             <div className="d-flex justify-content-start col-4">
-                                <a href="#" onClick={() => this.sortPosts(0)}>Newest</a>
+                                <a href="#" onClick={(event) => {
+                                    event.preventDefault()
+                                    this.sortPosts(0)
+                                }}>Newest</a>
+                                {/* <button className="btn btn-sm" onClick={() => this.sortPosts(0)}>Newest</button> */}
                             </div>
                             <div className="d-flex justify-content-center col-4">
-                                <a href="#" onClick={() => this.sortPosts(1)}>Most Popular</a>
+                                <a href="#" onClick={(event) => {
+                                    event.preventDefault()
+                                    this.sortPosts(1)
+                                }}>Most Popular</a>
+                                {/* <button className="btn btn-sm" onClick={() => this.sortPosts(1)}>Most Popular</button> */}
                             </div>
                             <div className="d-flex justify-content-end col-4">
-                                <a href="#" onClick={() => this.sortPosts(2)}>Most Discussed</a>
+                                <a href="#" onClick={(event) => {
+                                    event.preventDefault()
+                                    this.sortPosts(2)
+                                }}>Most Discussed</a>
+                                {/* <button className="btn btn-sm" onClick={() => this.sortPosts(2)}>Most Discussed</button> */}
                             </div>
                         </div>
                         {
@@ -109,15 +129,22 @@ export class Homepage extends Component {
                         }
                         <div className="row">
                             <div className="col-6 d-flex justify-content-start">
-                                <a href="#">prev</a>
+                                <a href="#" onClick={(event) => {
+                                    event.preventDefault()
+                                }}>prev</a>
+                                {/* <button className="btn btn-sm">prev</button> */}
                             </div>
                             <div className="col-6 d-flex justify-content-end">
-                                <a href="#">next</a>
+                                <a href="#" onClick={(event) => {
+                                    event.preventDefault()
+                                }}>next</a>
+                                {/* <button className="btn btn-sm">next</button> */}
                             </div>
                         </div>
                         <hr />
                         <div className="row d-flex justify-content-center">
                             <a href="#" onClick={() => this.props.navigate()}>Feedback</a>
+                            {/* <button className="btn btn-sm" onClick={() => this.props.navigate()}>Feedback</button> */}
                         </div>
                     </div>
                     <div className="col-3"></div>

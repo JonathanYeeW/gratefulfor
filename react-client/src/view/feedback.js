@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 // between Homepage and Feedback Page
 
 export class Feedback extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         console.log("## Feedback ## props:", this.props)
     }
@@ -44,6 +44,7 @@ export class Feedback extends Component {
                         <hr />
                         <div className="row d-flex justify-content-center">
                             <a href="#" onClick={() => this.props.navigate()}>Home</a>
+                            {/* <button className="btn btn-sm" onClick={() => this.props.navigate()}>Home</button> */}
                         </div>
                     </div>
                     <div className="col-3"></div>

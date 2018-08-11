@@ -17,13 +17,22 @@ export class Post extends Component {
                         <p>post.name</p>
                     </div>
                     <div className="col-2">
-                        <a href="#">post.likes</a>
+                        {/* <button className="btn btn-sm btn-outline-primary">post.likes</button> */}
+                        <a href="#" onClick={(event) => {
+                            event.preventDefault()
+                        }} >likes #</a>
                     </div>
-                    <div className="col-3">
-                        {/* <a href="#">comment #</a> */}
+                    <div className="col-6">
+                        {/* <button className="btn btn-sm btn-outline-primary">post.likes</button> */}
+                        <a href="#" onClick={(event) => {
+                            event.preventDefault()
+                        }} >comments #</a>
                     </div>
-                    <div className="col-5 d-flex justify-content-end">
-                        <a href="#" className="text-danger">flag</a>
+                    <div className="col-2 d-flex justify-content-end">
+                        <a href="#" onClick={(event) => {
+                            event.preventDefault()
+                        }} className="text-danger">flag</a>
+                        {/* <button className="btn btn-sm btn-outline-danger">post.flags</button> */}
                     </div>
                 </div>
             </div>
