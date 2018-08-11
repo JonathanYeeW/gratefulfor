@@ -3,6 +3,10 @@
 
 import React, { Component } from 'react';
 import { Post } from "./Components/Post";
+var postManager = require('../controller/postmanager')
+
+// var enc = require('../controllers/encryption.js')
+
 
 // Props:
 // - navigate() | the function from App that switches views
@@ -13,11 +17,18 @@ export class Homepage extends Component {
         super(props);
         console.log("## Homepage ## props:", this.props)
         this.state = {
-            posts: [1, 2],
+            posts: [],
             submission: false,
             name: "",
             post: "",
         }
+        fetch('/post/')
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    posts: res.posts
+                })
+            })
     }
 
     // functions: handles when users type into the name and posts 
@@ -50,7 +61,7 @@ export class Homepage extends Component {
             name: this.state.name,
             post: this.state.post,
         }
-        console.log(data)
+        postManager.createPost(data)
         this.setState({
             submission: true,
             name: "",
@@ -162,8 +173,10 @@ export class Homepage extends Component {
                         {
                             this.state.posts.map(item => {
                                 return (
-                                    <div key={item}>
-                                        <Post />
+                                    <div key={item._id}>
+                                        <Post 
+                                            item = {item}
+                                        />
                                     </div>
                                 )
                             })

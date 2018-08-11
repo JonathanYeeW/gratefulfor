@@ -2,15 +2,21 @@
 // Look there when starting to learn this application
 
 import React, { Component } from 'react';
+var postManager = require('../../controller/postmanager')
+
+// Props
+// -item | the Post object
 
 export class Post extends Component {
     
     likePost = () => {
         console.log("## Post ## likePost()")
+        postManager.likePost(this.props.item)
     }
 
     flagPost = () => {
         console.log("## Post ## flagPost()")
+        postManager.flagPost(this.props.item)
     }
 
     commentPost = () => {
@@ -22,26 +28,26 @@ export class Post extends Component {
             <div className="mt-3 mb-3">
                 <div className="border rounded grateful-fill-width grateful-post-box">
                     <div className="p-1">
-                        <p>post.text</p>
+                        <p>{this.props.item.post}</p>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-2">
-                        <p>post.name</p>
+                    <div className="col-4">
+                        <p>{this.props.item.name}</p>
                     </div>
                     <div className="col-2">
                         {/* <button className="btn btn-sm btn-outline-primary">post.likes</button> */}
                         <a href="#" onClick={(event) => {
                             event.preventDefault()
                             this.likePost()
-                        }} >likes #</a>
+                        }} >Like {this.props.item.likes}</a>
                     </div>
-                    <div className="col-6">
+                    <div className="col-4">
                         {/* <button className="btn btn-sm btn-outline-primary">post.likes</button> */}
-                        <a href="#" onClick={(event) => {
+                        {/* <a href="#" onClick={(event) => {
                             event.preventDefault()
                             this.commentPost()
-                        }} >comments #</a>
+                        }} >comments #</a> */}
                     </div>
                     <div className="col-2 d-flex justify-content-end">
                         <a href="#" onClick={(event) => {

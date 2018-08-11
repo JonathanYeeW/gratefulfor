@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/merntest')
+mongoose.connect('mongodb://localhost/grateful')
 mongoose.Promise = global.Promise;
 
 // POST SCHEMA
