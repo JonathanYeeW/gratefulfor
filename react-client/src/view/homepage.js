@@ -54,6 +54,21 @@ export class Homepage extends Component {
         }
     }
 
+    pagination = (data) => {
+        console.log("## Homepage ## pagination()")
+        switch (data) {
+            case 0:
+                console.log("previous 25")
+                break
+            case 1:
+                console.log("next 25")
+                break
+            default:
+                console.log("error")
+        }
+
+    }
+
     render() {
         console.log("## Homepage ## render()")
 
@@ -131,12 +146,14 @@ export class Homepage extends Component {
                             <div className="col-6 d-flex justify-content-start">
                                 <a href="#" onClick={(event) => {
                                     event.preventDefault()
+                                    this.pagination(0)
                                 }}>prev</a>
                                 {/* <button className="btn btn-sm">prev</button> */}
                             </div>
                             <div className="col-6 d-flex justify-content-end">
                                 <a href="#" onClick={(event) => {
                                     event.preventDefault()
+                                    this.pagination(1)
                                 }}>next</a>
                                 {/* <button className="btn btn-sm">next</button> */}
                             </div>

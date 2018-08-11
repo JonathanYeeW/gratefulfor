@@ -11,10 +11,51 @@ export class Feedback extends Component {
     constructor(props) {
         super(props);
         console.log("## Feedback ## props:", this.props)
+        this.state = {
+            submission: false
+        }
+    }
+
+    submitFeedback = () => {
+        console.log("## Feedback ## submitFeedback()")
+        this.setState({
+            submission: true
+        })
     }
 
     render() {
         console.log("## Feedback ## render()")
+        let body;
+
+        // Below is for toggling the view before and 
+        // after feedback is submitted
+        if (this.state.submission) {
+            body =
+                <div>
+                    <h3 className="text-center">Thank you for your feedback!</h3>
+                </div>
+        } else {
+            body =
+                <form onSubmit={(event) => {
+                    event.preventDefault()
+                    this.submitFeedback()
+                }}>
+                    <div className="form-group">
+                        <input type="text" class="form-control" placeholder="Your Name" />
+                    </div>
+                    <div className="form-group">
+                        <input type="text" class="form-control" placeholder="Your Email" />
+                    </div>
+                    <div className="form-group">
+                        <textarea className="form-control" placeholder="Feedback" rows="5"></textarea>
+                    </div>
+                    <div className="row d-flex justify-content-end">
+                        <button className="btn">Submit</button>
+                    </div>
+                </form>
+        }
+
+
         return (
             <div className="container">
                 <div className="row">
@@ -27,20 +68,9 @@ export class Feedback extends Component {
                             You don't need to leave an email or your name if you don't want to.
                         </p>
                         <hr />
-                        <form>
-                            <div className="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name" />
-                            </div>
-                            <div className="form-group">
-                                <input type="text" class="form-control" placeholder="Your Email" />
-                            </div>
-                            <div className="form-group">
-                                <textarea className="form-control" placeholder="Feedback" rows="5"></textarea>
-                            </div>
-                            <div className="row d-flex justify-content-end">
-                                <button className="btn">Submit</button>
-                            </div>
-                        </form>
+                        <div className="grateful-homepage-formbody">
+                            {body}
+                        </div>
                         <hr />
                         <div className="row d-flex justify-content-center">
                             <a href="#" onClick={() => this.props.navigate()}>Home</a>
