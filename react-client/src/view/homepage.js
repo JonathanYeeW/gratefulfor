@@ -13,13 +13,22 @@ export class Homepage extends Component {
         super(props);
         console.log("## Homepage ## props:", this.props)
         this.state = {
-            posts: [1, 2, 3, 4, 5]
+            posts: [1, 2, 3, 4, 5],
+            submission: false,
         }
     }
 
     // function for submitting a new post
-    submitNewPost = () => {
+    submitNewPost = (event) => {
         console.log("## Homepage ## submitNewPost()")
+        event.preventDefault();
+        console.log(event.target.name.value)
+        console.log(event.target.post.value)
+        event.target.name.value = ""
+        event.target.post.value = ""
+        this.setState({
+            submission: true
+        })
     }
 
     // function for sorting the posts between newest, most
@@ -43,23 +52,40 @@ export class Homepage extends Component {
 
     render() {
         console.log("## Homepage ## render()")
+
+        // Below is code for toggling the view before and after a
+        // post is submitted. 
+        let formbody;
+        if (this.state.submission) {
+            formbody =
+                <div className="d-flex justify-content-center">
+                    <h3 className>Thank you for your submission!</h3>
+                    <button className="btn" onClick={() => this.setState({ submission: false })}>Submit Again</button>
+                </div>
+        } else {
+            formbody =
+                <form className="mb-5" onSubmit={(event) => this.submitNewPost(event)}>
+                    <div className="form-group">
+                        <input type="text" class="form-control" placeholder="Your Name" name="name" />
+                    </div>
+                    <div className="form-group">
+                        <textarea className="form-control" placeholder="I'm grateful for..." rows="3" name="post"></textarea>
+                    </div>
+                    <div className="row d-flex justify-content-end">
+                        <button className="btn">Post</button>
+                    </div>
+                </form>
+        }
+
         return (
             <div className="container">
                 <div className="row ">
                     <div className="col-3"></div>
                     <div className="col-6">
                         <h3 className="text-center mb-5">What Are You Grateful For?</h3>
-                        <form className="mb-5">
-                            <div className="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name" />
-                            </div>
-                            <div className="form-group">
-                                <textarea className="form-control" placeholder="I'm grateful for..." rows="3"></textarea>
-                            </div>
-                            <div className="row d-flex justify-content-end">
-                                <button className="btn" onClick={() => this.submitNewPost()}>Post</button>
-                            </div>
-                        </form>
+                        <div className="grateful-homepage-formbody">
+                            {formbody}
+                        </div>
                         <hr />
                         <div className="row mb-4">
                             <div className="d-flex justify-content-start col-4">
