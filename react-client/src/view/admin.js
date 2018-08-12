@@ -3,6 +3,7 @@
 
 import React, { Component } from 'react';
 import { FlaggedPost } from './Components/FlaggedPost';
+import { FeedbackPost } from './Components/FeedbackPost';
 
 // Props:
 // - navigate | 
@@ -12,13 +13,21 @@ export class Admin extends Component {
         super(props);
         console.log("## Admin ## props:", this.props)
         this.state = {
-            flaggedPosts: []
+            flaggedPosts: [],
+            feedbackPosts: [],
         }
         fetch('/post/flaggedPosts')
             .then(res => res.json())
             .then(res => {
                 this.setState({
                     flaggedPosts: res.posts
+                })
+            })
+        fetch('/feedback/')
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    feedbackPosts: res.feedbacks
                 })
             })
     }
@@ -36,7 +45,6 @@ export class Admin extends Component {
                         <p>Total Views</p>
                         <hr />
                         <p>Flagged Posts Here</p>
-
                         {
                             this.state.flaggedPosts.map(item => {
                                 return (
@@ -48,9 +56,18 @@ export class Admin extends Component {
                                 )
                             })
                         }
-
-
-                        {/* <FlaggedPost /> */}
+                        <hr />
+                        {
+                            this.state.feedbackPosts.map(item => {
+                                return (
+                                    <div key={item._id}>
+                                        <FeedbackPost
+                                            item={item}
+                                        />
+                                    </div>
+                                )
+                            })
+                        }
                         <hr />
                     </div>
                     <div className="col-3"></div>
