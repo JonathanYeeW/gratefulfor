@@ -9,6 +9,7 @@ var logger = require('morgan');
 // Adding the routers
 var indexRouter = require('./routes/index');
 var postRouter = require('./routes/post');
+var feedbackRouter = require('./routes/feedback');
 
 var bodyParser = require('body-parser');
 var app = express();
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 console.log("# app.js # ROUTES")
 app.use('/', indexRouter);
 app.use('/post', postRouter);
+app.use('/feedback', feedbackRouter)
 
 console.log("# app.js # ELSE")
 

@@ -25,10 +25,10 @@ class App extends Component {
       })
     } else {
       this.setState({
+        navigate: false,
         admin: true
       })
     }
-
   }
 
   render() {

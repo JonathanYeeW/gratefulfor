@@ -3,8 +3,6 @@
 
 import React, { Component } from 'react';
 import { FlaggedPost } from './Components/FlaggedPost';
-var postManager = require('../controller/postmanager')
-
 
 // Props:
 // - navigate | 

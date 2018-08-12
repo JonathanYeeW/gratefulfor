@@ -3,6 +3,10 @@
 
 import React, { Component } from 'react';
 
+var feedbackManager = require('../controller/feedbackmanager')
+// var postManager = require('../../controller/postmanager')
+
+
 // Props:
 // - navigate() | the function from App that switches views
 // between Homepage and Feedback Page
@@ -53,7 +57,7 @@ export class Feedback extends Component {
             email: this.state.email,
             feedback: this.state.feedback,
         }
-        console.log(data)
+        feedbackManager.createFeedback(data)
         this.setState({
             submission: true,
             name: "",

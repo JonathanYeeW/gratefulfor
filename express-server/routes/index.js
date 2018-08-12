@@ -26,6 +26,7 @@ mongoose.model('View', ViewSchema)
 var FeedbackSchema = new mongoose.Schema({
   name: String,
   email: String,
+  feedback: String,
   created_at: Date,
 })
 mongoose.model('Feedback', FeedbackSchema)
